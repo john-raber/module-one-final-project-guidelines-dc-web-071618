@@ -11,7 +11,7 @@ class CommandLineInterface
     end
 
     def get_user_input
-        puts "Please select your favorite team."
+        puts "Please select a team."
         display_teams 
         user_input = gets.chomp.to_i
 
