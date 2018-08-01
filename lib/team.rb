@@ -1,5 +1,5 @@
 class Team < ActiveRecord::Base
-    has_many :matches 
+    has_many :matches
     has_one :stadium
     has_many :stadiums, through: :matches
 
@@ -11,15 +11,15 @@ class Team < ActiveRecord::Base
         Match.where("home_team_id = ?", self.id)
     end
 
-    def away_team_matches 
+    def away_team_matches
         Match.where("away_team_id = ?", self.id)
     end
 
-    def all_matches 
+    def all_matches
         home_team_matches + away_team_matches
     end
 
-    def home_team_wins 
+    def home_team_wins
         home_team_matches.where("home_team_score > away_team_score")
     end
 
@@ -27,20 +27,20 @@ class Team < ActiveRecord::Base
         home_team_matches.where("home_team_score < away_team_score")
     end
 
-    def total_wins 
-        home_team_wins + away_team_wins 
+    def total_wins
+        home_team_wins + away_team_wins
     end
 
-    def home_team_draws 
+    def home_team_draws
         home_team_matches.where("home_team_score = away_team_score")
     end
 
-    def away_team_draws 
+    def away_team_draws
         away_team_matches.where("home_team_score = away_team_score")
     end
 
-    def total_draws 
-        home_team_draws + away_team_draws 
+    def total_draws
+        home_team_draws + away_team_draws
     end
 
     def home_team_wins_against(name)
@@ -85,13 +85,9 @@ class Team < ActiveRecord::Base
         home_team_draws_against(name) + away_team_draws_against(name)
     end
 
-    # def total_record 
-    #     "#{total_wins.length} wins, #{total_losses.length} losses, #{total_draws.length} draws"
-    # end
-
-
-
-
+    def total_record_against(name)
+        total_wins_against(name) + total_losses_against(name) + total_draws_against(name)
+    end
 
     def away_team_wins
         away_team_matches.where("away_team_score > home_team_score")
@@ -101,8 +97,12 @@ class Team < ActiveRecord::Base
         away_team_matches.where("away_team_score < home_team_score")
     end
 
-    def total_losses 
-        home_team_losses + away_team_losses 
+    def total_losses
+        home_team_losses + away_team_losses
+    end
+
+    def get_scores(score)
+        all_matches.select do |match| match.home_team_score == score || match.away_team_score == score end
     end
 
 end

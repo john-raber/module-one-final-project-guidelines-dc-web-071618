@@ -6,4 +6,6 @@ require_all 'lib'
 
 ActiveSupport::Inflector.inflections do |inflect|
     inflect.irregular 'stadium', 'stadiums'
-   end
+end
+
+ActiveRecord::Base.logger = nil
