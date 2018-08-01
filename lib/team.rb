@@ -85,6 +85,10 @@ class Team < ActiveRecord::Base
         home_team_draws_against(name) + away_team_draws_against(name)
     end
 
+    def total_record_against(name)
+        total_wins_against(name) + total_losses_against(name) + total_draws_against(name)
+    end
+
     def away_team_wins
         away_team_matches.where("away_team_score > home_team_score")
     end
