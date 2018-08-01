@@ -3,10 +3,10 @@ class Match < ActiveRecord::Base
     belongs_to :stadium
     # def initialize(home_team_id:, away_team_id:, home_team_score:, away_team_score:)
     #     @home_team_id = home_team_id
-    #     @away_team_id = away_team_id 
+    #     @away_team_id = away_team_id
     #     @home_team_score = home_team_score
-    #     @away_team_score = away_team_score 
-    #     self.home_team.matches << self 
+    #     @away_team_score = away_team_score
+    #     self.home_team.matches << self
     #     self.away_team.matches << self
     # end
     def home_team
@@ -15,6 +15,10 @@ class Match < ActiveRecord::Base
 
     def away_team
         Team.find(self.away_team_id)
+    end
+
+    def scores
+        "Home: #{home_team_score}, Away: #{away_team_score}"
     end
 
     def self.scores(score)
